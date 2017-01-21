@@ -142,7 +142,7 @@ end
 -- Get weather for current location
 -- Hammerspoon needs access to OS location services
 local function setWeatherForCurrentLocation(unitSys)
-  if hs.location.servicesEnabled then
+  if hs.location.servicesEnabled() then
     hs.location.start()
     hs.timer.doAfter(1,
       function ()
