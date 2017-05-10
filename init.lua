@@ -143,14 +143,13 @@ end
 -- Hammerspoon needs access to OS location services
 local function setWeatherForCurrentLocation(unitSys)
   if hs.location.servicesEnabled() then
-    hs.location.start()
-    hs.timer.doAfter(1,
-      function ()
-        local loc = hs.location.get()
-        hs.location.stop()
-        setWeatherForLocation(
-          '(' .. loc.latitude .. ',' .. loc.longitude .. ')', unitSys)
-      end)
+    local loc = hs.location.get()
+    if loc then
+      setWeatherForLocation(
+        '(' .. loc.latitude .. ',' .. loc.longitude .. ')', unitSys)
+    else
+      print('\n-- Failed to get location!\n')
+    end
   else
     print('\n-- Location services disabled!\n')
   end
